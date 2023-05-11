@@ -19,6 +19,7 @@ position: relative;
   box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.959);
   position: relative;
   overflow: hidden;
+  color:#fff;
 }
 
 .primaryButton:active {
@@ -77,6 +78,7 @@ position: relative;
   text-transform: uppercase;
   font-size: larger;
   margin-bottom: 1rem;
+  text-align: center;
   
 }
 
@@ -90,7 +92,8 @@ position: relative;
   padding: .5rem 2rem;
   background-color: #97938ed8;
   box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.5);
-  border: none
+  border: none;
+  color:#fff;
 }
 
 .buttonSecondary:active{
