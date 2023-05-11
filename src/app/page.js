@@ -1,95 +1,65 @@
-import Image from 'next/image'
-import styles from './page.module.css'
-
+"use client";
+import { useState } from "react";
+import styles from "./page.module.css";
 export default function Home() {
+  const [showMessage, setShowMessage] = useState(false);
+  const [showProgress, setShowProgress] = useState(false);
+  const [progress, setProgress] = useState(0);
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+      <div className={styles.buttonContainer}>
+        {console.log(progress)}
+        <button
+           onClick={() => {
+            setShowProgress(true);
+            const interval = setInterval(() => {
+              setProgress((progress) => {
+                const newProgress = progress + 13;
+                if (newProgress >= 100) {
+                  setShowMessage(true);
+                  setProgress(0)
+                  setShowProgress(false);
+                  clearInterval(interval);
+                  return 100;
+                }
+                return newProgress;
+              });
+            }, 400);
+          }}
+          className={styles.primaryButton}
+        >
+          Click To Make Everything Okay
+        </button>
+      </div>
+      {showProgress ? (
+        <div className={styles.progressWrapper}>
+          <h1>Hang tight while we use our magic to make Everything okay</h1>
+          <div className={styles.progressContainer}>
+            <div
+              className={styles.progressBar}
+              style={{ width: `${progress}%` }}
+            ></div>
+          </div>
         </div>
-      </div>
+      ) : null}
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
+      {showMessage ? (
+        <div className={styles.message}>
+          <h1>Everything is okay now</h1>
           <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
+            If everything is still not OK, try checking your settings of
+            perception of objective reality.
           </p>
-        </a>
-      </div>
+          <button
+            onClick={() => {
+              setShowMessage(!showMessage);
+            }}
+            className={styles.buttonSecondary}
+          >
+            Continue
+          </button>
+        </div>
+      ) : null}
     </main>
-  )
+  );
 }
